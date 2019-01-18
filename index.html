@@ -2,7 +2,6 @@
 <!-- KaTeX requires the use of the HTML5 doctype. Without it, KaTeX may not render properly -->
 <html>
   <head>
-
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
 
@@ -14,16 +13,51 @@
     <!-- To automatically render math in text elements, include the auto-render extension: -->
     <script  src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
         onload="renderMathInElement(document.body);"></script>
+
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+        crossorigin="anonymous"></script>
   </head>
   <body>
+    <!--
+      Any time. you want to add an equation just type the Tex code into a math div
+      ie. 
+      <div class="math">
+        ...some Tex code ...
+      </div>
 
-  <p>some content</p>
+      and it will be rendered when the page is published
+    -->
+    <p>some content</p>
 
-<p><span id="mykatex1">...</span></p>
-<script>
-katex.render("f(a,b,c) = (a^2+b^2+c^2)^3", mykatex1);
-</script> 
+    <div class="math">
+      f(x) = \sqrt{1+x} \quad (x \ge  -1)  
+    </div>
+    <p>Some other text here. </p>
+    <div class="math">
+      f(x) = \sqrt{1+x}, \quad x \ge -1  
+    </div>
 
-
+    <script>
+      (function(){
+      $(".math").each(function() {
+        var texTxt = $(this).text();
+        el = $(this).get(0);
+        console.log("data: " + el)
+        if(el.tagName == "DIV"){
+            addDisp = "\\displaystyle";
+        } else {
+            addDisp = "";
+        }
+        try {
+            katex.render(addDisp+texTxt, el);
+        }
+        catch(err) {
+            $(this).html("<span class='err'>"+err);
+        }
+      }); 
+    })();
+    </script>
   </body>
 </html>
