@@ -33,33 +33,5 @@
     
     <p>some content</p>
 
-    <div class="math">
-      f(x) = \sqrt{1+x} \quad (x \ge  -1)  
-    </div>
-    <p>Some other text here. </p>
-    <div class="math">
-      f(x) = \sqrt{1+x}, \quad x \ge -1  
-    </div>
-
-    <script>
-      (function(){
-      $(".math").each(function() {
-        var texTxt = $(this).text();
-        el = $(this).get(0);
-        console.log("data: " + el)
-        if(el.tagName == "DIV"){
-            addDisp = "\\displaystyle";
-        } else {
-            addDisp = "";
-        }
-        try {
-            katex.render(addDisp+texTxt, el);
-        }
-        catch(err) {
-            $(this).html("<span class='err'>"+err);
-        }
-      }); 
-    })();
-    </script>
   </body>
 </html>
